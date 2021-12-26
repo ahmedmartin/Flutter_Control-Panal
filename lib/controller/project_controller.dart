@@ -15,6 +15,7 @@ class Project_controller extends GetxController{
   String ?token;
   String ?department_id;
   Depart_model? selected_depart_model;
+  Project_details_model ?model;
   Login_controller login_controller = Get.find();
 
   @override
@@ -27,7 +28,6 @@ class Project_controller extends GetxController{
 
     dapar_list.value = await Depart_repo().fetch_departments_all_details(token!);
 
-    print(dapar_list.value);
 
     if(login_controller.success.isManager!) {
       Depart_model temp = Depart_model();

@@ -252,8 +252,8 @@ class _tasks extends State<Tasks>{
 
           // -----------show start & end date -----------------------
           const SizedBox(height: 20,),
-          Text('S_D :'+sDate,style: const TextStyle(fontSize: 20,color: Colors.greenAccent),),
-          Text('E_D : '+eDate,style: const TextStyle(fontSize: 20,color: Colors.redAccent),),
+          Text('SD :'+sDate,style: const TextStyle(fontSize: 20,color: Colors.greenAccent),),
+          Text('DD : '+eDate,style: const TextStyle(fontSize: 20,color: Colors.redAccent),),
           const SizedBox(height: 15,)
 
         ],

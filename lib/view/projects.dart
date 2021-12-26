@@ -1,5 +1,7 @@
 import 'package:control_panel/controller/project_controller.dart';
 import 'package:control_panel/model/depart_model.dart';
+import 'package:control_panel/view/add_project.dart';
+import 'package:control_panel/view/update_project.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -19,7 +21,8 @@ class Projects extends StatelessWidget{
        children: [
            SizedBox(height: 40,),
            _Draw_departments_dropdown(project_controller),
-           SizedBox(height: 20,),
+           SizedBox(height: 30,),
+           Align(alignment:Alignment.topRight,child: _Draw_new_project_button()),
            Expanded(child: _Draw_list_view(project_controller))
        ],
      ),
@@ -101,7 +104,23 @@ class _Draw_project_of_list extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // show project name
-          Text(project_controller!.proj_list[index!].name!,style: const TextStyle(fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),),
+
+          SizedBox(height: 10,),
+          Row(
+            children: [
+              SizedBox(width: 30,),
+              GestureDetector(
+                  child: Icon(Icons.edit,color:  Colors.white,size: 30,),
+                  onTap: (){
+                      project_controller!.model= project_controller!.proj_list[index!];
+                      Get.to(Update_project());
+                  }),
+            ],
+          ),
+
+          Text(project_controller!.proj_list[index!].name!,style: const TextStyle(
+              fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),),
+
           const SizedBox(height: 30,),
 
           //---------show task progress percentage and status and user name ---------------
@@ -114,7 +133,7 @@ class _Draw_project_of_list extends StatelessWidget{
             animationDuration: 1200,
             animation: true,
             percent: double.parse(project_controller!.proj_list[index!].progress!)/100 ,
-            center: _Draw_center(),
+            center: Text(project_controller!.proj_list[index!].progress!+' %',style: const TextStyle(fontSize: 22,color: Colors.white)),
 
           ),
 
@@ -125,8 +144,8 @@ class _Draw_project_of_list extends StatelessWidget{
 
           // -----------show start & end date -----------------------
           const SizedBox(height: 20,),
-          Text('S_D :'+project_controller!.proj_list[index!].startDate!,style: const TextStyle(fontSize: 20,color: Colors.greenAccent),),
-          Text('E_D : '+project_controller!.proj_list[index!].endDate!,style: const TextStyle(fontSize: 20,color: Colors.redAccent),),
+          Text('SD :'+project_controller!.proj_list[index!].startDate!,style: const TextStyle(fontSize: 20,color: Colors.greenAccent),),
+          Text('DD : '+project_controller!.proj_list[index!].endDate!,style: const TextStyle(fontSize: 20,color: Colors.redAccent),),
           const SizedBox(height: 15,)
 
         ],
@@ -134,57 +153,25 @@ class _Draw_project_of_list extends StatelessWidget{
     );
   }
 
- Widget _Draw_center(){
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+}
 
-          Text(project_controller!.proj_list[index!].progress!+' %',style: const TextStyle(fontSize: 22,color: Colors.white)),
-          SizedBox(width: 5,),
-          GestureDetector(
-            child: Icon(Icons.edit,color:  Colors.white,size: 25,),
-            onTap: (){
-              double val =double.parse(project_controller!.proj_list[index!].progress!);
-
-              Get.defaultDialog(
-                  contentPadding: EdgeInsets.all(10),
-                  title: 'Update Progress',
-                  barrierDismissible: false,
-                  content:  Column(
-                    children: [
-                      // Obx(()=>task_controller.progress_message.value.isEmpty?CircularProgressIndicator():
-                      // Text(task_controller.progress_message.value, style: TextStyle(
-                      //     color: task_controller.progress_message.contains('successfully')?Colors.black:Colors.red),)),
-                      SizedBox(height: 20,),
-                      SleekCircularSlider(
-                          appearance: CircularSliderAppearance(customColors: CustomSliderColors()),
-                          initialValue: val,
-                          onChange: (double value) {
-                            val = value ;
-                          }),
-                    ],
-                  ),
-                  onConfirm: ()async{
-                    int t = val.toInt();
-                    if(t != val)
-                      t+=1;
-
-                    // await task_controller.update_progress(task_id,t);
-                    // if(task_controller.progress_message.contains('successfully')) {
-                    //   task_controller.have_tasks.value = false;
-                    //   task_controller.department.value = '';
-                    // }
-                  },
-                  //onCancel: (){task_controller.progress_message.value='Update Task Progress Bar';}
-              );
-            },
-          ),
-        ],
+class _Draw_new_project_button extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        decoration:BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Color(0xff005194)
+        ),
+        padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+        child:const Text('New Task',style:TextStyle(color:Colors.white,fontSize: 15,
+            fontWeight: FontWeight.bold),textAlign: TextAlign.center,) ,
       ),
+      onTap: (){
+        Get.to(Add_project());
+      },
     );
- }
+  }
 
 }

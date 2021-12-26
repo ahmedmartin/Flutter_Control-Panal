@@ -33,4 +33,33 @@ class Project_repo extends GetConnect{
   }
 
 
+  Future <dynamic>post_project(proj_name,description,start_date,end_date,String depart_id,token) async {
+
+    if(depart_id.isEmpty){
+      return 'Should Choose Department';
+    }
+    final response = await post('https://cp.translationhubs.com/test/project',{
+      "name": proj_name,
+      "startDate": start_date,
+      "endDate": end_date,
+      "description": description,
+      "DepartmentId": depart_id
+    },headers:{'Authorization':token} );
+
+
+    return response.body;
+  }
+
+  Future<String?> update_project(int proj_id,proj_name,description,start_date,end_date,token) async {
+    final response = await patch('https://cp.translationhubs.com/test/project',{
+        "projectId": proj_id,
+        "name": proj_name,
+        "description": description,
+        "startDate":start_date,
+        "endDate":end_date
+    },headers:{'Authorization':token} );
+
+    return response.bodyString;
+  }
+
 }

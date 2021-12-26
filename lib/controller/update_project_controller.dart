@@ -1,21 +1,20 @@
 import 'package:control_panel/controller/login_controller.dart';
-import 'package:control_panel/controller/task_controller.dart';
-import 'package:control_panel/model/task_model.dart';
-import 'package:control_panel/repository/task_repo.dart';
+import 'package:control_panel/controller/project_controller.dart';
+import 'package:control_panel/model/project_details_model.dart';
+import 'package:control_panel/repository/project_repo.dart';
 import 'package:get/get.dart';
 
 
 
 
-
-class Update_task_controller extends GetxController{
+class Update_project_controller extends GetxController{
 
   RxString start_date = ''.obs;
   RxString end_date = ''.obs;
 
-  task_model ?model;
+  Project_details_model ?model;
   String ?token;
-  String task_name='';
+  String project_name='';
   String description = '';
   String update_task_message='';
   DateTime S_date = DateTime.now();
@@ -23,7 +22,7 @@ class Update_task_controller extends GetxController{
 
 
   @override
-   onInit()  {
+  onInit()  {
 
     Login_controller login_controller = Get.find();
     token = login_controller.success.token!;
@@ -34,9 +33,9 @@ class Update_task_controller extends GetxController{
   }
 
   set_date(){
-    Task_controller task_controller = Get.find();
-    model = task_controller.model;
-    task_name=model!.name!;
+    Project_controller project_controller = Get.find();
+    model = project_controller.model;
+    project_name=model!.name!;
     description=model!.description!;
     start_date.value=model!.startDate!;
     end_date.value=model!.endDate!;
@@ -46,11 +45,12 @@ class Update_task_controller extends GetxController{
 
 
   update_task() async {
-    update_task_message = (await Task_repo().update_task(model!.id!, task_name, description,
+    update_task_message = (await Project_repo().update_project(model!.id!, project_name, description,
         start_date.value, end_date.value, token))!;
     if(update_task_message.contains('You are not authorized')) {
       update_task_message = "you don't have a permision";
     }
   }
+
 
 }
