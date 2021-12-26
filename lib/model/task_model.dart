@@ -7,6 +7,7 @@ class task_model {
   String ?status;
   int ?progress;
   String ?description;
+  bool expanded= false;
  // Null deletedAt;
  //  int ?projectId;
  //  int ?departmentId;

@@ -11,7 +11,10 @@ class Login_repo extends GetConnect{
       "password":pass
     });
     if(response.status.hasError){
-      return Future.error(response.statusText!);
+      print(response.statusText!);
+      Success temp = Success();
+      temp.message = response.body;
+      return temp;
     }
     return Success.fromJson(response.body['Success']);
   }

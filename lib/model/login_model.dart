@@ -27,7 +27,7 @@ class Success {
   bool ?isLeader;
   int ?expiresIn;
   String ?userName;
-  String ?userDepartment;
+  int ?userDepartment;
 
   Success(
       {this.message,

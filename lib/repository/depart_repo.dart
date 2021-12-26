@@ -7,7 +7,6 @@ class Depart_repo extends GetConnect {
     final response = await get('https://cp.translationhubs.com/test/department/all',
         headers:{'Authorization':token} );
     if(response.status.hasError){
-      print('error');
       return Future.error(response.statusText!);
     }
 
@@ -15,6 +14,20 @@ class Depart_repo extends GetConnect {
     List<String> departs = [];
     list.forEach((element) => departs.add(Depart_model.fromJson(element).name!));
     return departs;
+  }
+
+
+  Future<List<Depart_model>> fetch_departments_all_details(String token) async {
+    final response = await get('https://cp.translationhubs.com/test/department/all',
+        headers:{'Authorization':token} );
+    if(response.status.hasError){
+      return Future.error(response.statusText!);
+    }
+
+    List<dynamic> list = response.body;
+    List<Depart_model> departments = [];
+    list.forEach((element) => departments.add(Depart_model.fromJson(element)));
+    return departments;
   }
 
 }

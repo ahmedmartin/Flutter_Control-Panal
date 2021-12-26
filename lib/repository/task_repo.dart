@@ -8,11 +8,10 @@ class Task_repo extends GetConnect {
 
   Future<List<task_model>> fetch_tasks(String date,  String department, String token) async {
     final response = await post('https://cp.translationhubs.com/test/task/byDepartmentAndDate',{
-      "departmentName": "All departments",
-      "date": "2021-12-08"
+      "departmentName": department,
+      "date": date
     },headers:{'Authorization':token} );
     if(response.status.hasError){
-      print('error');
       return Future.error(response.statusText!);
     }
 
@@ -20,6 +19,51 @@ class Task_repo extends GetConnect {
     List<task_model> tasks = [];
     list.forEach((element) => tasks.add(task_model.fromJson(element)));
     return tasks;
+  }
+
+  Future <dynamic>post_task(task_name,description,int proj_id,start_date,end_date,String user_id,token) async {
+    final response = await post('https://cp.translationhubs.com/test/task',{
+      "name": task_name,
+      "startDate": start_date,
+      "endDate": end_date,
+      "description": description,
+      "UserId":user_id,
+      "ProjectId":proj_id
+    },headers:{'Authorization':token} );
+
+
+    return response.body;
+  }
+
+  Future<String?> employee_progress_bar(int task_id,int progress,token) async {
+    final response = await patch('https://cp.translationhubs.com/test/task/progress',{
+      "taskId":task_id,
+      "progress": progress
+    },headers:{'Authorization':token} );
+    print(response.statusCode.toString());
+    print(response.bodyString);
+    return response.bodyString;
+  }
+
+  Future<String?> leader_progress_bar(int task_id,int progress,token) async {
+    final response = await patch('https://cp.translationhubs.com/test/task/reviewProgress',{
+      "taskId":task_id,
+      "progress": progress
+    },headers:{'Authorization':token} );
+
+    return response.bodyString;
+  }
+
+  Future<String?> update_task(int task_id,task_name,description,start_date,end_date,token) async {
+    final response = await patch('https://cp.translationhubs.com/test/task',{
+      "taskId": task_id,
+      "name": task_name,
+      "description": description,
+      "startDate":start_date ,
+      "endDate": end_date
+    },headers:{'Authorization':token} );
+
+    return response.bodyString;
   }
 
 }

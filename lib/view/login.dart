@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:control_panel/controller/login_controller.dart';
+import 'package:control_panel/view/projects.dart';
 import 'package:control_panel/view/tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -70,21 +71,28 @@ class Login extends StatelessWidget {
                     //------ login button ---------------
                     SizedBox(height: 30),
                     GestureDetector(
-                        child: Container(
+                        child:Obx(()=> login_controller.wait.value?
+                        const CircularProgressIndicator()
+                        :Container(
                           width: 100,
                           height: 50,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
-                              color: Colors.indigo[900]
+                              color: Colors.blue[900]
                           ),
                           child:const Center(
                               child: Text("LOGIN", style: TextStyle(
                                   color: Colors.white, fontSize: 24))),
-                        ),
+                        )),
                         onTap: () async{
                           bool is_signed =  await login_controller.login(username_text.text,pass_text.text);
-                           if(is_signed)
-                             Get.off(tasks());
+                           if(is_signed) {
+                             //Get.off(Tasks());
+                             Get.off(Projects());
+                           } else {
+                             Get.snackbar('UnAuthorized',login_controller.success.message!
+                                 ,colorText:Color(0xff005194),snackPosition: SnackPosition.BOTTOM );
+                           }
                         }
                     ),
                   ],
