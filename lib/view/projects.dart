@@ -5,7 +5,6 @@ import 'package:control_panel/view/update_project.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 
 
@@ -165,7 +164,7 @@ class _Draw_new_project_button extends StatelessWidget{
             color: Color(0xff005194)
         ),
         padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-        child:const Text('New Task',style:TextStyle(color:Colors.white,fontSize: 15,
+        child:const Text('New Project',style:TextStyle(color:Colors.white,fontSize: 15,
             fontWeight: FontWeight.bold),textAlign: TextAlign.center,) ,
       ),
       onTap: (){

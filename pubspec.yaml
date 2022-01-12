@@ -39,7 +39,8 @@ dependencies:
   get: ^4.5.1
   percent_indicator: ^3.4.0
   sleek_circular_slider: ^2.0.1
-
+  fl_chart: ^0.40.6
+  flutter_datetime_picker: ^1.5.1
 
 dev_dependencies:
   flutter_test:

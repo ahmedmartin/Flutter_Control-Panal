@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:control_panel/controller/login_controller.dart';
-import 'package:control_panel/view/projects.dart';
-import 'package:control_panel/view/tasks.dart';
+import 'package:control_panel/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -87,8 +86,7 @@ class Login extends StatelessWidget {
                         onTap: () async{
                           bool is_signed =  await login_controller.login(username_text.text,pass_text.text);
                            if(is_signed) {
-                             // Get.off(Tasks());
-                             Get.off(Projects());
+                             Get.off(Home());
                            } else {
                              Get.snackbar('UnAuthorized',login_controller.success.message!
                                  ,colorText:Color(0xff005194),snackPosition: SnackPosition.BOTTOM );

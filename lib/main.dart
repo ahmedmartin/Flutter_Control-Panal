@@ -1,3 +1,4 @@
+import 'package:control_panel/home.dart';
 import 'package:control_panel/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: Login()
+      home:Login()
     );
   }
 }

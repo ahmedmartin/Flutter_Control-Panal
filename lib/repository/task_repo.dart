@@ -1,3 +1,4 @@
+import 'package:control_panel/model/dashbord_model.dart';
 import 'package:control_panel/model/task_model.dart';
 import 'package:get/get.dart';
 
@@ -64,6 +65,21 @@ class Task_repo extends GetConnect {
     },headers:{'Authorization':token} );
 
     return response.bodyString;
+  }
+
+  Future <Map<String, dynamic>> dashboard (start_date,end_date,period,token) async {
+    if(period=='monthly') {
+      period = 'weekly';
+    }
+
+    final response = await post('https://cp.translationhubs.com/api/task/dashboardStats',{
+      "startDate": start_date,
+      "endDate": end_date,
+      "period":  period
+    },headers:{'Authorization':token} );
+
+    print(response.body);
+    return response.body;
   }
 
 }
