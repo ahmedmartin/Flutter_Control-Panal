@@ -27,10 +27,6 @@ class Update_task_controller extends GetxController{
 
     Login_controller login_controller = Get.find();
     token = login_controller.success.token!;
-
-
-
-
   }
 
   set_date(){

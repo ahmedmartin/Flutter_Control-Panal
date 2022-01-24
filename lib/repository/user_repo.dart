@@ -20,4 +20,51 @@ class User_repo extends GetConnect{
     return users;
   }
 
+  Future<dynamic> edit_employee_activation(token,int id) async {
+    final response = await get('https://cp.translationhubs.com/test/user/toggleStatus/$id',
+        headers:{'Authorization':token} );
+
+    return response.body;
+  }
+
+
+  Future<dynamic> update_user(int id,name,user_name,email,bool leader,token) async {
+
+    Map<String,dynamic> body = {
+      "name": name,
+      "username": user_name,
+      "isLeader":leader
+    };
+    if(email.isNotEmpty)
+      body['email'] = email;
+
+    final response = await patch('https://cp.translationhubs.com/test/user/$id',
+        body,
+        headers:{'Authorization':token} );
+
+    return response.bodyString;
+  }
+
+  Future <dynamic>add_user(int rule,name,user_name,email,password,department_id,token) async {
+
+    Map<String,dynamic> body = {
+      "username": user_name,
+      "name": name,
+      "password": password,
+      "DepartmentId": department_id,
+    };
+    if(email.isNotEmpty)
+      body['email'] = email;
+
+    body["isManager"]= rule==3;
+    body["isLeader"]= rule==2;
+
+    final response = await post('https://cp.translationhubs.com/test/auth/add',
+        body
+        ,headers:{'Authorization':token} );
+
+
+    return response.body;
+  }
+
 }

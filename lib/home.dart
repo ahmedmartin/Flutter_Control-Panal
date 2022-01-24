@@ -5,6 +5,7 @@ import 'package:control_panel/model/project_details_model.dart';
 import 'package:control_panel/view/department.dart';
 import 'package:control_panel/view/projects.dart';
 import 'package:control_panel/view/tasks.dart';
+import 'package:control_panel/view/users.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -329,7 +330,7 @@ class _Draw_bottom_tap extends StatelessWidget{
     return Align(
       alignment: FractionalOffset.bottomCenter,
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(50),
             topRight: Radius.circular(50),
@@ -343,7 +344,7 @@ class _Draw_bottom_tap extends StatelessWidget{
           children: [
             // projects
             GestureDetector(
-              child:  CircleAvatar(
+              child:  const CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 20,
                 child: Icon(Icons.dashboard,size:25,color: Color(0xff005194),),
@@ -355,7 +356,7 @@ class _Draw_bottom_tap extends StatelessWidget{
 
             // projects
             GestureDetector(
-              child:  CircleAvatar(
+              child:  const CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 20,
                 child: Icon(Icons.account_tree_rounded,size:25,color: Color(0xff005194),),
@@ -367,7 +368,7 @@ class _Draw_bottom_tap extends StatelessWidget{
 
             //department
            if(controller!.manger!)GestureDetector(
-              child: CircleAvatar(
+              child: const CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 20,
                 child: Icon(Icons.all_inbox_rounded,size: 25,color:Color(0xff005194),),
@@ -378,13 +379,20 @@ class _Draw_bottom_tap extends StatelessWidget{
             ),
 
             //employees
-            GestureDetector (
-              child: CircleAvatar(
+            controller!.manger!?GestureDetector (
+              child: const CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 20,
                 child: Icon(Icons.supervisor_account,size: 25,color: Color(0xff005194),),
               ),
-              // onTap: ()=> Get.to(Dictionary()),
+              onTap: ()=> Get.to(Users()),
+            ):GestureDetector (
+              child: const CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 20,
+                child: Icon(Icons.person,size: 25,color: Color(0xff005194),),
+              ),
+               // onTap: ()=> Get.to(Users()),
             ),
 
             //logout
