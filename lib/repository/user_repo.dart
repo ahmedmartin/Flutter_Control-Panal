@@ -68,7 +68,6 @@ class User_repo extends GetConnect{
     return response.body;
   }
 
-<<<<<<< HEAD
 
   Future<User_profile_model> get_user_info(token,int id) async {
     final response = await get('https://cp.translationhubs.com/test/user/$id',
@@ -77,6 +76,4 @@ class User_repo extends GetConnect{
     return User_profile_model.fromJson(response.body);
   }
 
-=======
->>>>>>> a7a27adcfb413dc930c835338e02c7bf93e34b23
 }

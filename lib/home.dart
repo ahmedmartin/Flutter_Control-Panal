@@ -393,11 +393,11 @@ class _Draw_bottom_tap extends StatelessWidget{
                 radius: 20,
                 child: Icon(Icons.person,size: 25,color: Color(0xff005194),),
               ),
-<<<<<<< HEAD
+
                 onTap: ()=> Get.to(Profile_info()),
-=======
+
                // onTap: ()=> Get.to(Users()),
->>>>>>> a7a27adcfb413dc930c835338e02c7bf93e34b23
+
             ),
 
             //logout

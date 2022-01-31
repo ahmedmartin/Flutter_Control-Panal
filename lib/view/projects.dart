@@ -1,6 +1,7 @@
 import 'package:control_panel/controller/project_controller.dart';
 import 'package:control_panel/model/depart_model.dart';
 import 'package:control_panel/view/add_project.dart';
+import 'package:control_panel/view/tasks_project.dart';
 import 'package:control_panel/view/update_project.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -92,63 +93,68 @@ class _Draw_project_of_list extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(70),//110
-        color: const Color(0xff005194),
+    return GestureDetector(
+      child: Container(
+        width: Get.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(70),//110
+          color: const Color(0xff005194),
+        ),
+        margin: EdgeInsets.all(15),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // show project name
+
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                SizedBox(width: 30,),
+                GestureDetector(
+                    child: Icon(Icons.edit,color:  Colors.white,size: 30,),
+                    onTap: (){
+                        project_controller!.model= project_controller!.proj_list[index!];
+                        Get.to(Update_project());
+                    }),
+              ],
+            ),
+
+            Text(project_controller!.proj_list[index!].name!,style: const TextStyle(
+                fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),),
+
+            const SizedBox(height: 30,),
+
+            //---------show task progress percentage and status and user name ---------------
+            CircularPercentIndicator(
+              radius: 150,
+              lineWidth: 15,
+              progressColor:Colors.green,
+              backgroundColor: Colors.white70,
+              //fillColor: Colors.blue,
+              animationDuration: 1200,
+              animation: true,
+              percent: double.parse(project_controller!.proj_list[index!].progress!)/100 ,
+              center: Text(project_controller!.proj_list[index!].progress!+' %',style: const TextStyle(fontSize: 22,color: Colors.white)),
+
+            ),
+
+            const SizedBox(height: 20,),
+
+            //---------show description -----------------------
+            Text(project_controller!.proj_list[index!].description!,style: const TextStyle(fontSize: 18,color: Colors.white),textAlign: TextAlign.center,),
+
+            // -----------show start & end date -----------------------
+            const SizedBox(height: 20,),
+            Text('SD :'+project_controller!.proj_list[index!].startDate!,style: const TextStyle(fontSize: 20,color: Colors.greenAccent),),
+            Text('DD : '+project_controller!.proj_list[index!].endDate!,style: const TextStyle(fontSize: 20,color: Colors.redAccent),),
+            const SizedBox(height: 15,)
+
+          ],
+        ),
       ),
-      margin: EdgeInsets.all(15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // show project name
-
-          SizedBox(height: 10,),
-          Row(
-            children: [
-              SizedBox(width: 30,),
-              GestureDetector(
-                  child: Icon(Icons.edit,color:  Colors.white,size: 30,),
-                  onTap: (){
-                      project_controller!.model= project_controller!.proj_list[index!];
-                      Get.to(Update_project());
-                  }),
-            ],
-          ),
-
-          Text(project_controller!.proj_list[index!].name!,style: const TextStyle(
-              fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),),
-
-          const SizedBox(height: 30,),
-
-          //---------show task progress percentage and status and user name ---------------
-          CircularPercentIndicator(
-            radius: 150,
-            lineWidth: 15,
-            progressColor:Colors.green,
-            backgroundColor: Colors.white70,
-            //fillColor: Colors.blue,
-            animationDuration: 1200,
-            animation: true,
-            percent: double.parse(project_controller!.proj_list[index!].progress!)/100 ,
-            center: Text(project_controller!.proj_list[index!].progress!+' %',style: const TextStyle(fontSize: 22,color: Colors.white)),
-
-          ),
-
-          const SizedBox(height: 20,),
-
-          //---------show description -----------------------
-          Text(project_controller!.proj_list[index!].description!,style: const TextStyle(fontSize: 18,color: Colors.white),textAlign: TextAlign.center,),
-
-          // -----------show start & end date -----------------------
-          const SizedBox(height: 20,),
-          Text('SD :'+project_controller!.proj_list[index!].startDate!,style: const TextStyle(fontSize: 20,color: Colors.greenAccent),),
-          Text('DD : '+project_controller!.proj_list[index!].endDate!,style: const TextStyle(fontSize: 20,color: Colors.redAccent),),
-          const SizedBox(height: 15,)
-
-        ],
-      ),
+      onTap: (){
+        Get.to(Tasks_project(index!));
+      },
     );
   }
 

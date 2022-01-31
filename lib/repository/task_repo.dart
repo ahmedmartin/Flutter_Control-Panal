@@ -1,5 +1,6 @@
 import 'package:control_panel/model/dashbord_model.dart';
 import 'package:control_panel/model/task_model.dart';
+import 'package:control_panel/model/tasks_project_model.dart';
 import 'package:get/get.dart';
 
 
@@ -19,6 +20,19 @@ class Task_repo extends GetConnect {
     List<dynamic> list = response.body;
     List<task_model> tasks = [];
     list.forEach((element) => tasks.add(task_model.fromJson(element)));
+    return tasks;
+  }
+
+  Future<List<Tasks_project_model>> fetch_tasks_project(String token,int id) async {
+    final response = await get('https://cp.translationhubs.com/test/task/byProject/$id',
+        headers:{'Authorization':token} );
+    if(response.status.hasError){
+      return Future.error(response.statusText!);
+    }
+
+    List<dynamic> list = response.body;
+    List<Tasks_project_model> tasks = [];
+    list.forEach((element) => tasks.add(Tasks_project_model.fromJson(element)));
     return tasks;
   }
 
