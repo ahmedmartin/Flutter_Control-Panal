@@ -17,7 +17,6 @@ class Department_controller extends GetxController with StateMixin<List<Departme
   void onInit() {
   Login_controller login_controller = Get.find();
   token = login_controller.success.token!;
-
   
   
     super.onInit();
