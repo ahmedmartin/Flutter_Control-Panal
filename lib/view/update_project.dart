@@ -1,6 +1,7 @@
 
 
 
+import 'package:control_panel/controller/main_controller.dart';
 import 'package:control_panel/controller/project_controller.dart';
 import 'package:control_panel/controller/update_project_controller.dart';
 import 'package:flutter/material.dart';
@@ -129,9 +130,9 @@ class _Drow_date_selector extends StatelessWidget{
 class _Draw_update_button extends StatelessWidget{
 
   Update_project_controller update_controller;
-  TextEditingController task_name;
+  TextEditingController proj_name;
   TextEditingController description;
-  _Draw_update_button(this.update_controller,this.task_name,this.description);
+  _Draw_update_button(this.update_controller,this.proj_name,this.description);
 
   @override
   Widget build(BuildContext context) {
@@ -149,13 +150,16 @@ class _Draw_update_button extends StatelessWidget{
       ),
       onTap: ()async{
 
-        update_controller.project_name = task_name.text;
+        update_controller.project_name = proj_name.text;
         update_controller.description = description.text;
         await update_controller.update_task();
         if(update_controller.update_task_message.contains('successfully')) {
-          Project_controller task_controller = Get.find();
-          task_controller.department.value='';
-          task_controller.have_projects.value=false;
+          Project_controller proj_controller = Get.find();
+          Main_controller main_controller = Get.find();
+          String body = 'Project Updated name : "${proj_name.text}" in department : "${proj_controller.department}"';
+          main_controller.push_notification_topic(body, 'Project Updated', proj_controller.department_id);
+          proj_controller.department.value='';
+          proj_controller.have_projects.value=false;
           Get.back();
           Get.snackbar('Message', update_controller.update_task_message,
               snackPosition: SnackPosition.BOTTOM,backgroundColor: Colors.green);

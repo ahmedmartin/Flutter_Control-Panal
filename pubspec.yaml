@@ -41,6 +41,9 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   fl_chart: ^0.40.6
   flutter_datetime_picker: ^1.5.1
+  firebase_messaging: ^11.2.5
+  firebase_core:
+  dio:
 
 dev_dependencies:
   flutter_test:

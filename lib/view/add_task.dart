@@ -1,4 +1,6 @@
 import 'package:control_panel/controller/add_task_controller.dart';
+import 'package:control_panel/controller/login_controller.dart';
+import 'package:control_panel/controller/main_controller.dart';
 import 'package:control_panel/model/project_model.dart';
 import 'package:control_panel/model/user_model.dart';
 import 'package:flutter/material.dart';

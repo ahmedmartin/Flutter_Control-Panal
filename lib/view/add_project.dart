@@ -1,4 +1,5 @@
 import 'package:control_panel/controller/add_project_controller.dart';
+import 'package:control_panel/controller/main_controller.dart';
 import 'package:control_panel/model/depart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -181,9 +182,9 @@ class _Drow_date_selector extends StatelessWidget{
 class _Draw_create_button extends StatelessWidget{
 
   Add_project_controller add_controller;
-  TextEditingController task_name;
+  TextEditingController proj_name;
   TextEditingController description;
-  _Draw_create_button(this.add_controller,this.task_name,this.description);
+  _Draw_create_button(this.add_controller,this.proj_name,this.description);
 
   @override
   Widget build(BuildContext context) {
@@ -201,10 +202,13 @@ class _Draw_create_button extends StatelessWidget{
       ),
       onTap: ()async{
 
-        add_controller.proj_name = task_name.text;
+        add_controller.proj_name = proj_name.text;
         add_controller.description = description.text;
         await add_controller.create_project();
         if(add_controller.create_project_message.contains('successfully')) {
+          Main_controller main_controller = Get.find();
+          String body = 'New Project Created name : "${proj_name.text}" in department : "${add_controller.department}"';
+          main_controller.push_notification_topic(body, 'New Project Created', add_controller.department_id);
           Get.back();
           Get.snackbar('Message', add_controller.create_project_message,
               snackPosition: SnackPosition.BOTTOM,backgroundColor: Colors.green);

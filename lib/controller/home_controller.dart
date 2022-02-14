@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:control_panel/controller/main_controller.dart';
 import 'package:control_panel/model/dashbord_model.dart';
 import 'package:control_panel/repository/task_repo.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -37,7 +38,10 @@ class Home_controller extends GetxController{
      Login_controller login_controller = Get.find();
     token = login_controller.success.token!;
     manger = login_controller.success.isManager;
-
+    
+    Main_controller main_controller = Get.find();
+    if(login_controller.success.userDepartment.isNull) login_controller.success.userDepartment = -1;
+    main_controller.supscription_topic(login_controller.success.userDepartment.toString());
   }
 
   show_dashpord_for_specific_department(){

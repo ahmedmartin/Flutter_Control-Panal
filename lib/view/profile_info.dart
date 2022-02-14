@@ -32,7 +32,7 @@ class Profile_info extends StatelessWidget{
 
   Widget _Draw_page_header(var value){
     return Container(
-      height: 255,
+      height: 280,
       width: Get.width,
       decoration: BoxDecoration(
           color: Color(0xff005194),

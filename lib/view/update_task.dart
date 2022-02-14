@@ -1,3 +1,4 @@
+import 'package:control_panel/controller/main_controller.dart';
 import 'package:control_panel/controller/task_controller.dart';
 import 'package:control_panel/controller/update_task_controller.dart';
 import 'package:flutter/material.dart';
